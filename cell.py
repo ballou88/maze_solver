@@ -2,46 +2,31 @@ from graphics import Line, Point
 
 
 class Cell:
-    def __init__(
-        self,
-        window,
-        point1,
-        point2,
-        has_top_wall=True,
-        has_right_wall=True,
-        has_bottom_wall=True,
-        has_left_wall=True,
-    ) -> None:
-        self.point1 = point1
-        self.point2 = point2
-        self.has_top_wall = has_top_wall
-        self.has_right_wall = has_right_wall
-        self.has_bottom_wall = has_bottom_wall
-        self.has_left_wall = has_left_wall
+    def __init__(self, window) -> None:
+        self.x1 = None
+        self.x1 = None
+        self.x2 = None
+        self.y2 = None
+        self.has_top_wall = True
+        self.has_right_wall = True
+        self.has_bottom_wall = True
+        self.has_left_wall = True
         self.window = window
 
-    def draw(self):
+    def draw(self, x1, y1, x2, y2):
+        self._x1 = x1
+        self._x2 = x2
+        self._y1 = y1
+        self._y2 = y2
         if self.has_top_wall:
-            self.draw_top()
+            line = Line(Point(x1, y1), Point(x2, y1))
+            self.window.draw_line(line, "black")
         if self.has_right_wall:
-            self.draw_right()
+            line = Line(Point(x2, y1), Point(x2, y2))
+            self.window.draw_line(line, "black")
         if self.has_bottom_wall:
-            self.draw_bottom()
+            line = Line(Point(x1, y2), Point(x2, y2))
+            self.window.draw_line(line, "black")
         if self.has_left_wall:
-            self.draw_left()
-
-    def draw_top(self):
-        line = Line(self.point1, Point(self.point2.x, self.point1.y))
-        self.window.draw_line(line, "black")
-
-    def draw_right(self):
-        line = Line(Point(self.point2.x, self.point1.y), self.point2)
-        self.window.draw_line(line, "black")
-
-    def draw_bottom(self):
-        line = Line(Point(self.point1.x, self.point2.y), self.point2)
-        self.window.draw_line(line, "black")
-
-    def draw_left(self):
-        line = Line(self.point1, Point(self.point1.x, self.point2.y))
-        self.window.draw_line(line, "black")
+            line = Line(Point(x1, y1), Point(x1, y2))
+            self.window.draw_line(line, "black")
