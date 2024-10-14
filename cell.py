@@ -30,3 +30,13 @@ class Cell:
         if self.has_left_wall:
             line = Line(Point(x1, y1), Point(x1, y2))
             self.window.draw_line(line, "black")
+
+    def center(self):
+        return Point((self._x1 + self._x2) // 2, (self._y1 + self._y2) // 2)
+
+    def draw_move(self, to_cell, undo=False):
+        color = "gray" if undo else "red"
+        point1 = self.center()
+        point2 = to_cell.center()
+        line = Line(point1, point2)
+        self.window.draw_line(line, color)
