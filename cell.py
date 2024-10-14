@@ -11,6 +11,7 @@ class Cell:
         self.has_right_wall = True
         self.has_bottom_wall = True
         self.has_left_wall = True
+        self.visited = False
         self.window = window
 
     def draw(self, x1, y1, x2, y2):
@@ -20,18 +21,18 @@ class Cell:
         self._x2 = x2
         self._y1 = y1
         self._y2 = y2
-        if self.has_top_wall:
-            line = Line(Point(x1, y1), Point(x2, y1))
-            self.window.draw_line(line, "black")
-        if self.has_right_wall:
-            line = Line(Point(x2, y1), Point(x2, y2))
-            self.window.draw_line(line, "black")
-        if self.has_bottom_wall:
-            line = Line(Point(x1, y2), Point(x2, y2))
-            self.window.draw_line(line, "black")
-        if self.has_left_wall:
-            line = Line(Point(x1, y1), Point(x1, y2))
-            self.window.draw_line(line, "black")
+        color = "black" if self.has_top_wall else "white"
+        line = Line(Point(x1, y1), Point(x2, y1))
+        self.window.draw_line(line, color)
+        color = "black" if self.has_right_wall else "white"
+        line = Line(Point(x2, y1), Point(x2, y2))
+        self.window.draw_line(line, color)
+        color = "black" if self.has_bottom_wall else "white"
+        line = Line(Point(x1, y2), Point(x2, y2))
+        self.window.draw_line(line, color)
+        color = "black" if self.has_left_wall else "white"
+        line = Line(Point(x1, y1), Point(x1, y2))
+        self.window.draw_line(line, color)
 
     def center(self):
         return Point((self._x1 + self._x2) // 2, (self._y1 + self._y2) // 2)
